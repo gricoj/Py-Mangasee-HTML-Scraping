@@ -1,11 +1,23 @@
-# Mangasee-HTML-Scraping
+# Mangasee HTML Scraping
+We will be scraping [Mangasee](https://mangaseeonline.us) as it is a one of the better manga sources. The information we will be scraping includes: Series Name, Chapter Numbers, Publish Dates, and URL to the chapter. The purpose of this module is to use it to get notified when a new chapter for a series is published.
+
+## Table of Contents
+
 
 ### The HTML
 Series Name:
 ```html
 <h1 class="SeriesName">One Piece</h1>
 ```
-Chapter Entries
+Single Chapter Entry:
+```html
+<a class="list-group-item" chapter="964" href="/read-online/One-Piece-chapter-964-page-1.html" title="Read One Piece Chapter 964 For Free Online">
+  <span class="chapterLabel">Chapter 964</span>
+  <i class="hidden-xs">
+  </i><time class="SeriesTime pull-right" datetime="2019-11-29T05:13:28+00:00" datestring="20191129">11/29/2019</time>
+</a>
+```
+Chapter Entries:
 ```html
 <div class="list chapter-list">
   <a class="list-group-item" chapter="964" href="/read-online/One-Piece-chapter-964-page-1.html" title="Read One Piece Chapter 964 For Free Online">
@@ -17,7 +29,6 @@ Chapter Entries
   .
   .
   .
-  
   <a class="list-group-item" chapter="1" href="/read-online/One-Piece-chapter-1-page-1.html" title="Read One Piece Chapter 1 For Free Online">
     <span class="chapterLabel">Chapter 1</span>
     <i class="hidden-xs"></i>
@@ -25,14 +36,13 @@ Chapter Entries
   </a>
 </div>
 ```
-Single Chapter Entry:
-```html
-<a class="list-group-item" chapter="964" href="/read-online/One-Piece-chapter-964-page-1.html" title="Read One Piece Chapter 964 For Free Online">
-  <span class="chapterLabel">Chapter 964</span>
-  <i class="hidden-xs">
-  </i><time class="SeriesTime pull-right" datetime="2019-11-29T05:13:28+00:00" datestring="20191129">11/29/2019</time>
-</a>
+## Installing Required Packages
+```python
+pip install requests-html
+pip install datetime
 ```
+We use the [*request-html*](https://requests-html.kennethreitz.org/) package so that we can easily parse HTML. We use the [*datetime*](https://docs.python.org/3/library/datetime.html) to get the time since a new chapter has been released.
+
 ### Manga Class
 ```python
 class Chapter_OBJ:
