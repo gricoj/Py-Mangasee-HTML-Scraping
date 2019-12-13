@@ -2,13 +2,13 @@
 We will be scraping [Mangasee](https://mangaseeonline.us) as it is a one of the better manga sources. The information we will be scraping includes: Series Name, Chapter Numbers, Publish Dates, and URL to the chapter. The purpose of this module is to eventually use it to get notified when a new chapter for a series is published.
 
 ## Table of Contents
-[HTML](https://github.com/gricoj/Mangasee-HTML-Scraping#html)
+[HTML](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#html)
 
-[Installing Required Packages](https://github.com/gricoj/Mangasee-HTML-Scraping#installing-required-packages)
+[Installing Required Packages](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#installing-required-packages)
 
-[Manga Class](https://github.com/gricoj/Mangasee-HTML-Scraping#manga-class)
+[Manga Class](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#manga-class)
 
-[Functions](https://github.com/gricoj/Mangasee-HTML-Scraping#functions)
+[Functions](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#functions)
 
 ## HTML
 These are snippets of the HTML for a [manga series'](https://mangaseeonline.us/manga/One-Piece) main page.
@@ -70,7 +70,7 @@ We specify 4 attributes:
 
 ## Functions
 #### getLatestChapter
-This function is used to get the latest chapter in a manga series. Thankfully Mangasee formats their webpage such that a manga's chapters are listed in descending order. This will allows us to simply look for the the first instance of the the [*list-group-item*](https://github.com/gricoj/Mangasee-HTML-Scraping#single-chapter-entry) attribute. 
+This function is used to get the latest chapter in a manga series. Thankfully Mangasee formats their webpage such that a manga's chapters are listed in descending order. This will allows us to simply look for the the first instance of the the [*list-group-item*](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#single-chapter-entry) attribute. 
 - We get the chapter number by finding the *chapterLabel* attribute, replacing the *"Chapter "* substring with an empty substring (so that we remove the *"Chapter "* preceeding every chapter number), and we then convert the string into float type
 - We get the chapter publish date by finding the *time* attribute
 - We get the direct url link to the chapter by using the *absoulute_links* method, popping the url from a set, and modifying the url so that it gives the link to entire chapter (instead of the first page of the chapter)
@@ -103,7 +103,7 @@ def getTimeSinceLastChapter(Manga_URL):
     return tdelta
 ```
 #### getAllChapters
-All chapters are listed in a list and all have the [*list-group-item*](https://github.com/gricoj/Mangasee-HTML-Scraping#chapter-entries) attribute. This time we do not use *first=True* when using the *find* method. Doing so allows us to get all instances of the *list-group-item* attribute, which means we have all the chapters. We then iterate through the chapters and store each chapters' information (similarly to the *getLatestChapter* function) into a list, and then return the list.
+All chapters are listed in a list and all have the [*list-group-item*](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#chapter-entries) attribute. This time we do not use *first=True* when using the *find* method. Doing so allows us to get all instances of the *list-group-item* attribute, which means we have all the chapters. We then iterate through the chapters and store each chapters' information (similarly to the *getLatestChapter* function) into a list, and then return the list.
 ```python
 def getAllChapters(Manga_URL):
     session = HTMLSession()
