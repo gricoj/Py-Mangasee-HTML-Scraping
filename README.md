@@ -97,7 +97,7 @@ def getTimeSinceLastChapter(Manga_URL):
     return tdelta
 ```
 #### getAllChapters
-All chapters are listed in a list and all have the *list-group-item* attribute. This time we do not use *first=True* when using the *find* method. Doing so allows us to get all instances of the *list-group-item* attribute, which means we have all the chapters. We then iterate through the chapters and store rach chapters' information (similarly to the *getLatestChapter* function) into a list, and then return the list.
+All chapters are listed in a list and all have the *list-group-item* attribute. This time we do not use *first=True* when using the *find* method. Doing so allows us to get all instances of the *list-group-item* attribute, which means we have all the chapters. We then iterate through the chapters and store each chapters' information (similarly to the *getLatestChapter* function) into a list, and then return the list.
 ```python
 def getAllChapters(Manga_URL):
     session = HTMLSession()
