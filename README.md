@@ -65,12 +65,12 @@ We create a class so that we can store manga chapter's information into a single
 We specify 4 attributes: 
 - series: Will store the manga series' name (string)
 - chapter_number: Will store the chapter number (float)
-- date_published: Will store the date the chapter was published on [Mangasee](https://mangaseeonline.us) (float)
+- date_published: Will store the date the chapter was published on Mangasee (float)
 - url: Will store the direct link to the particular chapter (string)
 
 ## Functions
 #### getLatestChapter
-This function is used to get the latest chapter in a manga series. Thankfully [Mangasee](https://mangaseeonline.us) formats their webpage such that a manga's chapters are listed in descending order. This will allows us to simply look for the the first instance of the the [*list-group-item*](https://github.com/gricoj/Mangasee-HTML-Scraping#single-chapter-entry) attribute. 
+This function is used to get the latest chapter in a manga series. Thankfully Mangasee formats their webpage such that a manga's chapters are listed in descending order. This will allows us to simply look for the the first instance of the the [*list-group-item*](https://github.com/gricoj/Mangasee-HTML-Scraping#single-chapter-entry) attribute. 
 - We get the chapter number by finding the *chapterLabel* attribute, replacing the *"Chapter "* substring with an empty substring (so that we remove the *"Chapter "* preceeding every chapter number), and we then convert the string into float type
 - We get the chapter publish date by finding the *time* attribute
 - We get the direct url link to the chapter by using the *absoulute_links* method, popping the url from a set, and modifying the url so that it gives the link to entire chapter (instead of the first page of the chapter)
