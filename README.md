@@ -2,13 +2,13 @@
 We will be scraping [Mangasee](https://mangaseeonline.us) as it is a one of the better manga sources. The information we will be scraping includes: Series Name, Chapter Numbers, Publish Dates, and URL to the chapter. The purpose of this module is to use it to get notified when a new chapter for a series is published.
 
 ## Table of Contents
-### [HTML](https://github.com/gricoj/Mangasee-HTML-Scraping#html)
+[HTML](https://github.com/gricoj/Mangasee-HTML-Scraping#html)
 
-### [Installing Required Packages](https://github.com/gricoj/Mangasee-HTML-Scraping#installing-required-packages)
+[Installing Required Packages](https://github.com/gricoj/Mangasee-HTML-Scraping#installing-required-packages)
 
-### [Manga Class](https://github.com/gricoj/Mangasee-HTML-Scraping#manga-class)
+[Manga Class](https://github.com/gricoj/Mangasee-HTML-Scraping#manga-class)
 
-### [Functions](https://github.com/gricoj/Mangasee-HTML-Scraping#functions)
+[Functions](https://github.com/gricoj/Mangasee-HTML-Scraping#functions)
 
 ## HTML
 These are snippets of the HTML for a [manga series'](https://mangaseeonline.us/manga/One-Piece) main page.
