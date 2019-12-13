@@ -4,12 +4,13 @@ We will be scraping [Mangasee](https://mangaseeonline.us) as it is a one of the 
 ## Table of Contents
 
 
-### The HTML
-Series Name:
+## HTML
+These are snippets of the HTML for a [manga series'](https://mangaseeonline.us/manga/One-Piece) main page.
+#### Series Name:
 ```html
 <h1 class="SeriesName">One Piece</h1>
 ```
-Single Chapter Entry:
+#### Single Chapter Entry:
 ```html
 <a class="list-group-item" chapter="964" href="/read-online/One-Piece-chapter-964-page-1.html" title="Read One Piece Chapter 964 For Free Online">
   <span class="chapterLabel">Chapter 964</span>
@@ -17,7 +18,7 @@ Single Chapter Entry:
   </i><time class="SeriesTime pull-right" datetime="2019-11-29T05:13:28+00:00" datestring="20191129">11/29/2019</time>
 </a>
 ```
-Chapter Entries:
+#### Chapter Entries:
 ```html
 <div class="list chapter-list">
   <a class="list-group-item" chapter="964" href="/read-online/One-Piece-chapter-964-page-1.html" title="Read One Piece Chapter 964 For Free Online">
@@ -36,6 +37,7 @@ Chapter Entries:
   </a>
 </div>
 ```
+
 ## Installing Required Packages
 ```python
 pip install requests-html
@@ -43,7 +45,7 @@ pip install datetime
 ```
 We use the [*request-html*](https://requests-html.kennethreitz.org/) package so that we can easily parse HTML. We use the [*datetime*](https://docs.python.org/3/library/datetime.html) to get the time since a new chapter has been released.
 
-### Manga Class
+## Manga Class
 ```python
 class Chapter_OBJ:
     def __init__(self, series, chapter_number, date_published, url):
@@ -52,7 +54,20 @@ class Chapter_OBJ:
         self.date_published = date_published
         self.url = url
 ```
-### Functions
+We create a class so that we can store manga chapter's information into a single object. 
+
+We specify 4 attributes: 
+- series: Will store the manga series' name (string)
+- chapter_number: Will store the chapter number (float)
+- date_published: Will store the date the chapter was published on [Mangasee](https://mangaseeonline.us) (float)
+- url: Will store the direct link to the particular chapter (string)
+
+## Functions
+#### getLatestChapter
+This function is used to get the latest chapter in a manga series. Thankfully [Mangasee](https://mangaseeonline.us) formats their webpage such that a manga's chapters are listed in descending order. This will allows us to simply look for the the first instance of the the *list-group-item* attribute. 
+- We get the chapter number by finding the *chapterLabel* attribute, replacing the *"Chapter "* substring with an empty substring (so that we remove the *"Chapter "* preceeding every chapter number), and we then convert the string into float type
+- We get the chapter publish date by finding the *time* attribute
+- We get the direct url link to the chapter by using the *absoulute_links* method, popping the url from a set, and modifying the url so that it gives the link to entire chapter (instead of the first page of the chapter)
 ```python
 def getLatestChapter(Manga_URL):
     session = HTMLSession()
@@ -66,6 +81,7 @@ def getLatestChapter(Manga_URL):
     Chapter_URL = ((Latest_Chapter.absolute_links).pop()).replace("-page-1","")
     return Chapter_OBJ(Series_Name,Chapter_Number,Chapter_PD,Chapter_URL)
 ```
+#### getTimeSinceLastChapter
 ```python
 def getTimeSinceLastChapter(Manga_URL):
     session = HTMLSession()
@@ -80,6 +96,8 @@ def getTimeSinceLastChapter(Manga_URL):
 
     return tdelta
 ```
+#### getAllChapters
+All chapters are listed in a list and all have the *list-group-item* attribute. This time we do not use *first=True* when using the *find* method. Doing so allows us to get all instances of the *list-group-item* attribute, which means we have all the chapters. We then iterate through the chapters and store rach chapters' information (similarly to the *getLatestChapter* function) into a list, and then return the list.
 ```python
 def getAllChapters(Manga_URL):
     session = HTMLSession()
