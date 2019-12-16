@@ -1,4 +1,3 @@
-#pip install requests-html
 from requests_html import HTML, HTMLSession
 from datetime import datetime 
 
@@ -16,13 +15,13 @@ def getAllChapters(Manga_URL):
     Chapters = r.html.find('.list-group-item')
     Series_Name = r.html.find('.SeriesName',first=True)
 
-    Chapter_Array = []
+    Chapter_List = []
     for chapter in Chapters:
-        Chapter_Number = float(((chapter.find('.chapterLabel',first=True)).text).replace("Chapter ",""))
+        Chapter_Number = float(((chapter.find('.chapterLabel',first=True)).text).split(" ")[1])
         Chapter_URL = ((chapter.absolute_links).pop()).replace("-page-1","")
         Chapter_PD = (chapter.find('time',first=True)).text
-        Chapter_Array.append(Chapter_OBJ(Series_Name,Chapter_Number,Chapter_PD,Chapter_URL))
-    return Chapter_Array
+        Chapter_List.append(Chapter_OBJ(Series_Name,Chapter_Number,Chapter_PD,Chapter_URL))
+    return Chapter_List
 
 def getTimeSinceLastChapter(Manga_URL):
     session = HTMLSession()
@@ -44,8 +43,7 @@ def getLatestChapter(Manga_URL):
 
     Latest_Chapter = r.html.find('.list-group-item',first=True)
 
-    Chapter_Number = float(((Latest_Chapter.find('.chapterLabel',first=True)).text).replace("Chapter ",""))
+    Chapter_Number = float(((Latest_Chapter.find('.chapterLabel',first=True)).text).split(" ")[1])
     Chapter_PD = (Latest_Chapter.find('time',first=True)).text
     Chapter_URL = ((Latest_Chapter.absolute_links).pop()).replace("-page-1","")
     return Chapter_OBJ(Series_Name,Chapter_Number,Chapter_PD,Chapter_URL)
- 
