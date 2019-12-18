@@ -73,19 +73,45 @@ We specify 4 attributes:
 session = HTMLSession()
 r = session.get(Manga_URL)
 ```
-#### Getting Series Name
-We first start off by looking for the element with class attribute *SeriesName*:
+#### Getting the Series Name
+We start off by looking for the element with class attribute *SeriesName*:
 
-```r.html.find('.SeriesName',first=True)```
+```python
+r.html.find('.SeriesName',first=True)
+```
 
-This will return the HTML element:
+This would return the HTML element:
 
-```<h1 class="SeriesName">One Piece</h1>```
+```html
+<h1 class="SeriesName">One Piece</h1>
+```
 
-We then get the Series' Name by getting the HTML element's text contents:
+Inorder to get the Series' Name we need to get the HTML element's text contents:
 
-```(r.html.find('.SeriesName',first=True)).text```
+```python
+(r.html.find('.SeriesName',first=True)).text
+```
 
 This returns the Series' Name:
 
 ```One Piece```
+
+#### Getting the Latests Chapter's Chapter Number, Chapter Publish Date and Chapter URL
+We start off by finding and storing the latests chapter's HTML. We use the *first=True* argument so that we are only returned the first chapter entry (chapter entries have class attribute *list-group-item*):
+
+```python
+Latest_Chapter = r.html.find('.list-group-item',first=True)
+```
+##### Chapter Number
+Getting the Chapter Number requires us to look for the class attribute *chapterLabel*:
+
+```html
+<span class="chapterLabel">Chapter 964</span>
+```
+
+We want to extract the ```964``` from the HTML. We would do this by first getting the element's text contents ```Chapter 964``` and splitting that string into a list of strings with *space* as the seperator (I opted for using this method for extracting chapter number because there are mangas that have their *chapter titles* stylized differntly. Most often chapters are simply stylized *Chapter XXX* but there some that do not i.e. One-Punch Man stylizes it's chapters *Punch XXX*, Dr.Stone stylizes it's chapters *Z= XXX*. The one thing they have in common is that there is a space before the actual chapter number). We finally convert the chapter number from type string to type float (We dont convert to type int because *bonus* chapters in a series are labeled *XXX.X*).
+
+```python
+Chapter_Number = float(((Latest_Chapter.find('.chapterLabel',first=True)).text).split(" ")[1])
+```
+
