@@ -1,6 +1,3 @@
-# To Do
-- [ ] Further simplify the chapter number scrapping (similar to getting the time of upload)
-
 # Mangasee HTML Scraping
 We will be scraping [Mangasee](https://mangaseeonline.us) as it is a one of the better manga sources. The information we will be scraping includes: Series Name, Chapter Numbers, Publish Dates, and URL to the chapter. The purpose of this module is to eventually use it to get notified when a new chapter for a series is published.
 
@@ -72,54 +69,19 @@ We specify 4 attributes:
 - url: Will store the direct link to the particular chapter (string)
 
 ## Functions
-#### getLatestChapter
-This function is used to get the latest chapter in a manga series. Thankfully Mangasee formats their webpage such that a manga's chapters are listed in descending order, so the latest chapter is always at the top of the page. This allows us to simply look for the the first instance of the the [*list-group-item*](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#single-chapter-entry) attribute. 
-- We get the chapter number by finding the *chapterLabel* attribute, splitting the
-- We get the chapter publish date by finding the *time* attribute
-- We get the direct url link to the chapter by using the *absoulute_links* method, popping the url from a set, and modifying the url so that it gives the link to entire chapter (instead of the first page of the chapter)
 ```python
-def getLatestChapter(Manga_URL):
-    session = HTMLSession()
-    r = session.get(Manga_URL)
-    Series_Name = (r.html.find('.SeriesName',first=True)).text
-
-    Latest_Chapter = r.html.find('.list-group-item',first=True)
-
-    Chapter_Number = float(((Latest_Chapter.find('.chapterLabel',first=True)).text).split(" ")[1])
-    Chapter_PD = (Latest_Chapter.find('time',first=True)).text
-    Chapter_URL = ((Latest_Chapter.absolute_links).pop()).replace("-page-1","")
-    return Chapter_OBJ(Series_Name,Chapter_Number,Chapter_PD,Chapter_URL)
+session = HTMLSession()
+r = session.get(Manga_URL)
 ```
-#### getTimeSinceLastChapter
-```python
-def getTimeSinceLastChapter(Manga_URL):
-    session = HTMLSession()
-    r = session.get(Manga_URL)
+#### Getting Series Name
+We first start off by looking for the element with class attribute *SeriesName*:
+>r.html.find('.SeriesName',first=True)
 
-    Time = ((r.html.find('.list-group-item',first=True).find('time',first=True).html).split('"')[3]).split("+")[0]
+This will return the HTML element:
+```<h1 class="SeriesName">One Piece</h1>```
 
-    date_format = "%Y-%m-%dT%H:%M:%S"
-    newTime = (datetime.strptime(Time,date_format)).strftime(date_format)
-    currentTime = (datetime.utcnow()).strftime(date_format)
-    tdelta = datetime.strptime(currentTime, date_format) - datetime.strptime(newTime, date_format)
+We then get the Series' Name by getting the HTML element's text contents:
+>(r.html.find('.SeriesName',first=True)).text
 
-    return tdelta
-```
-#### getAllChapters
-Since each chapter entry has the [*list-group-item*](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#chapter-entries) attribute we use the *find* (without the *first=True* argument) method to create a list of all chapters html objects. We then iterate through the list of chapters and store each chapters' information (repeating the same process as the *getLatestChapter* function) into a list, and then return that list.
-```python
-def getAllChapters(Manga_URL):
-    session = HTMLSession()
-    r = session.get(Manga_URL)
-
-    Chapters = r.html.find('.list-group-item')
-    Series_Name = r.html.find('.SeriesName',first=True)
-
-    Chapter_List = []
-    for chapter in Chapters:
-        Chapter_Number = float(((chapter.find('.chapterLabel',first=True)).text).split(" ")[1])
-        Chapter_URL = ((chapter.absolute_links).pop()).replace("-page-1","")
-        Chapter_PD = (chapter.find('time',first=True)).text
-        Chapter_List.append(Chapter_OBJ(Series_Name,Chapter_Number,Chapter_PD,Chapter_URL))
-    return Chapter_List
-```
+This returns the Series' Name:
+```One Piece```
