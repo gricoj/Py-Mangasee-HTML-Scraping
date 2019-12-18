@@ -75,13 +75,17 @@ r = session.get(Manga_URL)
 ```
 #### Getting Series Name
 We first start off by looking for the element with class attribute *SeriesName*:
+
 ```r.html.find('.SeriesName',first=True)```
 
 This will return the HTML element:
+
 ```<h1 class="SeriesName">One Piece</h1>```
 
 We then get the Series' Name by getting the HTML element's text contents:
+
 ```(r.html.find('.SeriesName',first=True)).text```
 
 This returns the Series' Name:
+
 ```One Piece```
