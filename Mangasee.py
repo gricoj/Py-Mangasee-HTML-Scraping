@@ -13,7 +13,7 @@ def getAllChapters(Manga_URL):
     r = session.get(Manga_URL)
 
     Chapters = r.html.find('.list-group-item')
-    Series_Name = r.html.find('.SeriesName',first=True)
+    Series_Name = r.html.find('.SeriesName',first=True).text
 
     Chapter_List = []
     for chapter in Chapters:
