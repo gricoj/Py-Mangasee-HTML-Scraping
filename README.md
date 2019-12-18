@@ -68,7 +68,7 @@ We specify 4 attributes:
 - date_published: Will store the date the chapter was published on Mangasee (float)
 - url: Will store the direct link to the particular chapter (string)
 
-## Functions
+## Scraping
 ```python
 session = HTMLSession()
 r = session.get(Manga_URL)
@@ -103,15 +103,42 @@ We start off by finding and storing the latests chapter's HTML. We use the *firs
 Latest_Chapter = r.html.find('.list-group-item',first=True)
 ```
 ##### Chapter Number
-Getting the Chapter Number requires us to look for the class attribute *chapterLabel*:
+Getting the Chapter Number requires us to look for the element with class attribute *chapterLabel*:
 
 ```html
 <span class="chapterLabel">Chapter 964</span>
 ```
 
-We want to extract the ```964``` from the HTML. We would do this by first getting the element's text contents ```Chapter 964``` and splitting that string into a list of strings with *space* as the seperator (I opted for using this method for extracting chapter number because there are mangas that have their *chapter titles* stylized differntly. Most often chapters are simply stylized *Chapter XXX* but there some that do not i.e. One-Punch Man stylizes it's chapters *Punch XXX*, Dr.Stone stylizes it's chapters *Z= XXX*. The one thing they have in common is that there is a space before the actual chapter number). We finally convert the chapter number from type string to type float (We dont convert to type int because *bonus* chapters in a series are labeled *XXX.X*).
+We want to extract the ```964``` from the HTML above. We would do this by first getting the element's text contents ```Chapter 964``` and splitting that string into a list of strings with *space* as the seperator (I opted for using this method for extracting chapter number because there are mangas that have their *chapter titles* stylized differntly. Most often chapters are simply stylized *Chapter XXX* but there some that do not i.e. One-Punch Man stylizes it's chapters *Punch XXX*, Dr.Stone stylizes it's chapters *Z= XXX*. The one thing they have in common is that there is a space before the actual chapter number). We finally convert the chapter number from type string to type float (We dont convert to type int because *bonus* chapters in a series are labeled *XXX.X*).
 
 ```python
 Chapter_Number = float(((Latest_Chapter.find('.chapterLabel',first=True)).text).split(" ")[1])
 ```
 
+##### Chapter Publish Date
+Getting the date the chapter was published requires us to look for the element with tag *time*:
+
+```html
+<time class="SeriesTime pull-right" datetime="2019-11-29T05:13:28+00:00" datestring="20191129">11/29/2019</time>
+```
+
+We want to extract the ```11/29/2019``` from the HTML above. Simarly to getting the Series Name, we simply need to get the HTML element's text contents.
+
+```python
+Chapter_PD = (Latest_Chapter.find('time',first=True)).text
+```
+
+##### Chapter URL
+Getting the link to the chapter requires us to use the *absolute_links* method
+
+```python
+Chapter_URL = ((Latest_Chapter.absolute_links).pop()).replace("-page-1","")
+```
+
+Calling the *absolute_links* method returns a set of all abosolute links in the HTML element:
+```https://mangaseeonline.us/read-online/One-Piece-chapter-964-page-1.html```
+
+Since the link is stored in a set, we must pop the link from the set. We then want to format the chapter url such that we get a link to the entire chapter ```https://mangaseeonline.us/read-online/One-Piece-chapter-964.html``` this is done by replacing the *"-page-1"* in the string with nothing.
+
+#### Getting all Chapters in a series
+We can get all chapters in a series by looking for the *list-group-item* class attribute, but this time we do not use the *first=True* argument doing so will return list of _______
