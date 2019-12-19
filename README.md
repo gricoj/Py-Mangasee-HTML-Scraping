@@ -49,24 +49,6 @@ These are snippets of the HTML for a [manga series'](https://mangaseeonline.us/m
 pip install requests-html
 pip install datetime
 ```
-We use the [*request-html*](https://pypi.org/project/requests-html/) package so that we can easily parse HTML. We use the [*datetime*](https://docs.python.org/3/library/datetime.html) to get the time since a new chapter has been released.
-
-## Manga Class
-```python
-class Chapter_OBJ:
-    def __init__(self, series, chapter_number, date_published, url):
-        self.series = series
-        self.chapter_number = chapter_number
-        self.date_published = date_published
-        self.url = url
-```
-We create a class so that we can store manga chapter's information into a single object. 
-
-We specify 4 attributes: 
-- series: Will store the manga series' name (string)
-- chapter_number: Will store the chapter number (float)
-- date_published: Will store the date the chapter was published on Mangasee (float)
-- url: Will store the direct link to the particular chapter (string)
 
 ## Scraping
 ```python
@@ -185,3 +167,20 @@ newTime = (datetime.strptime(Time,date_format)).strftime(date_format)
 currentTime = (datetime.utcnow()).strftime(date_format)
 tdelta = datetime.strptime(currentTime, date_format) - datetime.strptime(newTime, date_format)
 ```
+
+## Manga Class
+```python
+class Chapter_OBJ:
+    def __init__(self, series, chapter_number, date_published, url):
+        self.series = series
+        self.chapter_number = chapter_number
+        self.date_published = date_published
+        self.url = url
+```
+We create a class so that we can store manga chapter's information into a single object. 
+
+We specify 4 attributes: 
+- series: Will store the manga series' name (string)
+- chapter_number: Will store the chapter number (float)
+- date_published: Will store the date the chapter was published on Mangasee (float)
+- url: Will store the direct link to the particular chapter (string)
