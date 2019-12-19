@@ -6,9 +6,9 @@ We will be scraping [Mangasee](https://mangaseeonline.us) as it is a one of the 
 
 [Installing Required Packages](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#installing-required-packages)
 
-[Manga Class](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#manga-class)
+[Scraping](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#scraping)
 
-[Functions](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#functions)
+[Manga Class](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#manga-class)
 
 ## HTML
 These are snippets of the HTML for a [manga series'](https://mangaseeonline.us/manga/One-Piece) main page.
@@ -169,6 +169,8 @@ tdelta = datetime.strptime(currentTime, date_format) - datetime.strptime(newTime
 ```
 
 ## Manga Class
+Creating this class will allow us to create *Chapter Objects* which will allow us to store the information we gather into one object.
+
 ```python
 class Chapter_OBJ:
     def __init__(self, series, chapter_number, date_published, url):
@@ -177,10 +179,18 @@ class Chapter_OBJ:
         self.date_published = date_published
         self.url = url
 ```
-We create a class so that we can store manga chapter's information into a single object. 
 
 We specify 4 attributes: 
 - series: Will store the manga series' name (string)
 - chapter_number: Will store the chapter number (float)
 - date_published: Will store the date the chapter was published on Mangasee (float)
 - url: Will store the direct link to the particular chapter (string)
+
+## Using the functions
+```getLatestChapter```, ```getAllChapters```, and ```getTimeSinceLastChapter``` all take *Manga_URL* as an argument. *Manga_URL* refers to the manga series' main page ```i.e. https://mangaseeonline.us/manga/One-Piece```.
+
+```getLatestChapter```: Returns an object of type *Chapter_OBJ*
+
+```getAllChapters```: Returns a list of objects type *Chapter_OBJ*
+
+```getTimeSinceLastChapter```: Returns
