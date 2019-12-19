@@ -27,7 +27,8 @@ def getTimeSinceLastChapter(Manga_URL):
     session = HTMLSession()
     r = session.get(Manga_URL)
 
-    Time = ((r.html.find('.list-group-item',first=True).find('time',first=True).html).split('"')[3]).split("+")[0]
+    Latest_Chapter = r.html.find('.list-group-item',first=True)
+    Time = ((Latest_Chapter.find('time',first=True).html).split('"')[3]).split("+")[0]
 
     date_format = "%Y-%m-%dT%H:%M:%S"
     newTime = (datetime.strptime(Time,date_format)).strftime(date_format)
