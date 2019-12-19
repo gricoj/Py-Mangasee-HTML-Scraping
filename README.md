@@ -163,4 +163,25 @@ We start off by getting the latest chapter entry:
 Latest_Chapter = r.html.find('.list-group-item',first=True)
 ```
 
-We then look for the *time* attribute
+We then look for the *time* attribute to get the HTML:
+
+```python
+(Latest_Chapter.find('time',first=True).html)
+```
+```html
+<time class="SeriesTime pull-right" datetime="2019-11-29T05:13:28+00:00" datestring="20191129">11/29/2019</time>
+```
+We want to extract the ```2019-11-29T05:13:28```. We first split the string with *"* as the seperator, we get ```2019-11-29T05:13:28+00:00``` by selecting the string with index 3. We then split the string again with *+* as the seperator to ger rid of the ```+00:00```.
+
+```python
+Time = ((Latest_Chapter.find('time',first=True).html).split('"')[3]).split("+")[0]
+```
+
+Using the datetime module we format the time the chapter was published, we get the time, and find the time elapsed since the last chapter was published:
+
+```python
+date_format = "%Y-%m-%dT%H:%M:%S"
+newTime = (datetime.strptime(Time,date_format)).strftime(date_format)
+currentTime = (datetime.utcnow()).strftime(date_format)
+tdelta = datetime.strptime(currentTime, date_format) - datetime.strptime(newTime, date_format)
+```
