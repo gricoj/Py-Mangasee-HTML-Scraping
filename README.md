@@ -141,4 +141,26 @@ Calling the *absolute_links* method returns a set of all abosolute links in the 
 Since the link is stored in a set, we must pop the link from the set. We then want to format the chapter url such that we get a link to the entire chapter ```https://mangaseeonline.us/read-online/One-Piece-chapter-964.html``` this is done by replacing the *"-page-1"* in the string with nothing.
 
 #### Getting all Chapters in a series
-We can get all chapters in a series by looking for the *list-group-item* class attribute, but this time we do not use the *first=True* argument doing so will return list of _______
+We can get all chapters in a series by looking for the *list-group-item* class attribute, but this time we do not use the *first=True* argument doing so will return list of HTML elements:
+
+```python
+Chapters = r.html.find('.list-group-item')
+```
+
+We can iterate throught entry and we can follow the same steps as above to get each chapter's Chapter Number, Chapter Publish Date and Chapter URL:
+
+```python
+for chapter in Chapters:
+  Chapter_Number = float(((chapter.find('.chapterLabel',first=True)).text).split(" ")[1])
+  Chapter_URL = ((chapter.absolute_links).pop()).replace("-page-1","")
+  Chapter_PD = (chapter.find('time',first=True)).text
+```
+
+#### Getting time since the Latest Chapter was published
+We start off by getting the latest chapter entry:
+
+```python
+Latest_Chapter = r.html.find('.list-group-item',first=True)
+```
+
+We then look for the *time* attribute
