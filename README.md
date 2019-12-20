@@ -194,3 +194,40 @@ We specify 4 attributes:
 ```getAllChapters```: Returns a list of objects type *Chapter_OBJ*
 
 ```getTimeSinceLastChapter```: Returns a [timedelta object](https://docs.python.org/3/library/datetime.html#datetime.timedelta) in the form of *hours* *HH:MM:SS*. The timedelta object has attribute of *days*, *seconds*, and *microseconds*. (It is important to note that the seconds attribute cannot exceed 86399 and it will reset back to 0 when the difference in time is 84000 seconds)
+
+Using ```https://mangaseeonline.us/manga/Onepunch-Man``` as *Manga_URL*
+```python
+All_Chapters = getAllChapters("https://mangaseeonline.us/manga/Onepunch-Man")
+for chapter in All_Chapters:
+    print(f'{chapter.series} - {chapter.chapter_number} - {chapter.date_published} - {chapter.url}')
+```
+```
+One-Punch Man - 123.0 - 12/14/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-123.html
+One-Punch Man - 122.0 - 11/30/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-122.html
+One-Punch Man - 121.0 - 11/16/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-121.html
+One-Punch Man - 120.0 - 11/01/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-120.html
+One-Punch Man - 119.0 - 10/17/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-119.html
+.
+.
+One-Punch Man - 1.0 - 03/21/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-1.html
+```
+
+```python
+chapter = getLatestChapter("https://mangaseeonline.us/manga/Onepunch-Man")
+print(f'{chapter.series} - {chapter.chapter_number} - {chapter.date_published} - {chapter.url}')
+```
+```
+One-Punch Man - 123.0 - 12/14/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-123.html
+```
+
+```python
+time = getTimeSinceLastChapter("https://mangaseeonline.us/manga/Onepunch-Man")
+print(time)
+print(time.days)
+print(time.seconds)
+```
+```
+6 days, 3:06:25
+6
+11185
+```
