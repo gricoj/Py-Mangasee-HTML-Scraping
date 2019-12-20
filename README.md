@@ -222,7 +222,7 @@ One-Punch Man - 119.0 - 10/17/2019 - https://mangaseeonline.us/read-online/Onepu
 One-Punch Man - 1.0 - 03/21/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-1.html
 ```
 
-**getTimeSinceLastChapter**: Returns a [timedelta object](https://docs.python.org/3/library/datetime.html#datetime.timedelta) in the form of *hours* *HH:MM:SS*. The timedelta object has attribute of *days*, *seconds*, and *microseconds*. (It is important to note that the seconds attribute cannot exceed 86399 and it will reset back to 0 when the difference in time is 84000 seconds)
+**getTimeSinceLastChapter**: Returns a [timedelta object](https://docs.python.org/3/library/datetime.html#datetime.timedelta) in the form of *hours* *HH:MM:SS*. The timedelta object has attribute of *days*, *seconds*, and *microseconds*. (It is important to note that the seconds attribute cannot exceed 86399 and it will reset back to 0 when the difference in time is 84000 seconds or ~23.3 hours)
 
 ```python
 time = getTimeSinceLastChapter("https://mangaseeonline.us/manga/Onepunch-Man")
