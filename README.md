@@ -10,6 +10,8 @@ We will be scraping [Mangasee](https://mangaseeonline.us) as it is a one of the 
 
 [Manga Class](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#manga-class)
 
+[Using the Function](https://github.com/gricoj/Py-Mangasee-HTML-Scraping/blob/master/README.md#using-the-functions)
+
 ## HTML
 These are snippets of the HTML for a [manga series'](https://mangaseeonline.us/manga/One-Piece) main page.
 #### Series Name:
@@ -186,7 +188,7 @@ We specify 4 attributes:
 - date_published: Will store the date the chapter was published on Mangasee (float)
 - url: Will store the direct link to the particular chapter (string)
 
-## Using the functions
+## Using the Functions
 ```getLatestChapter```, ```getAllChapters```, and ```getTimeSinceLastChapter``` all take *Manga_URL* as an argument. *Manga_URL* refers to the manga series' main page ```i.e. https://mangaseeonline.us/manga/One-Piece```.
 
 Using ```https://mangaseeonline.us/manga/Onepunch-Man``` as *Manga_URL*:
