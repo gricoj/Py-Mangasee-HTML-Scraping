@@ -189,13 +189,20 @@ We specify 4 attributes:
 ## Using the functions
 ```getLatestChapter```, ```getAllChapters```, and ```getTimeSinceLastChapter``` all take *Manga_URL* as an argument. *Manga_URL* refers to the manga series' main page ```i.e. https://mangaseeonline.us/manga/One-Piece```.
 
-```getLatestChapter```: Returns an object of type *Chapter_OBJ*
+Using ```https://mangaseeonline.us/manga/Onepunch-Man``` as *Manga_URL*:
 
-```getAllChapters```: Returns a list of objects type *Chapter_OBJ*
+**getLatestChapter**: Returns an object of type *Chapter_OBJ*
 
-```getTimeSinceLastChapter```: Returns a [timedelta object](https://docs.python.org/3/library/datetime.html#datetime.timedelta) in the form of *hours* *HH:MM:SS*. The timedelta object has attribute of *days*, *seconds*, and *microseconds*. (It is important to note that the seconds attribute cannot exceed 86399 and it will reset back to 0 when the difference in time is 84000 seconds)
+```python
+chapter = getLatestChapter("https://mangaseeonline.us/manga/Onepunch-Man")
+print(f'{chapter.series} - {chapter.chapter_number} - {chapter.date_published} - {chapter.url}')
+```
+```
+One-Punch Man - 123.0 - 12/14/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-123.html
+```
 
-Using ```https://mangaseeonline.us/manga/Onepunch-Man``` as *Manga_URL*
+**getAllChapters**: Returns a list of objects type *Chapter_OBJ*
+
 ```python
 All_Chapters = getAllChapters("https://mangaseeonline.us/manga/Onepunch-Man")
 for chapter in All_Chapters:
@@ -212,13 +219,7 @@ One-Punch Man - 119.0 - 10/17/2019 - https://mangaseeonline.us/read-online/Onepu
 One-Punch Man - 1.0 - 03/21/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-1.html
 ```
 
-```python
-chapter = getLatestChapter("https://mangaseeonline.us/manga/Onepunch-Man")
-print(f'{chapter.series} - {chapter.chapter_number} - {chapter.date_published} - {chapter.url}')
-```
-```
-One-Punch Man - 123.0 - 12/14/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-123.html
-```
+**getTimeSinceLastChapter**: Returns a [timedelta object](https://docs.python.org/3/library/datetime.html#datetime.timedelta) in the form of *hours* *HH:MM:SS*. The timedelta object has attribute of *days*, *seconds*, and *microseconds*. (It is important to note that the seconds attribute cannot exceed 86399 and it will reset back to 0 when the difference in time is 84000 seconds)
 
 ```python
 time = getTimeSinceLastChapter("https://mangaseeonline.us/manga/Onepunch-Man")
