@@ -10,7 +10,7 @@ We will be scraping [Mangasee](https://mangaseeonline.us) as it is a one of the 
 
 [Manga Class](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#manga-class)
 
-[Using the Function](https://github.com/gricoj/Py-Mangasee-HTML-Scraping/blob/master/README.md#using-the-functions)
+[Using the Function](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#using-the-functions)
 
 ## HTML
 These are snippets of the HTML for a [manga series'](https://mangaseeonline.us/manga/One-Piece) main page.
