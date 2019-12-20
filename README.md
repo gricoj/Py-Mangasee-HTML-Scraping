@@ -193,4 +193,4 @@ We specify 4 attributes:
 
 ```getAllChapters```: Returns a list of objects type *Chapter_OBJ*
 
-```getTimeSinceLastChapter```: Returns
+```getTimeSinceLastChapter```: Returns a [timedelta object](https://docs.python.org/3/library/datetime.html#datetime.timedelta) in the form of *hours* *HH:MM:SS*. The timedelta object has attribute of *days*, *seconds*, and *microseconds*. (It is important to note that the seconds attribute cannot exceed 86399 and it will reset back to 0 when the difference in time is 84000 seconds)
