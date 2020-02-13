@@ -17,7 +17,8 @@ def getAllChapters(Manga_URL):
 
     Chapter_List = []
     for chapter in Chapters:
-        Chapter_Number = float(((chapter.find('.chapterLabel',first=True)).text).split(" ")[1])
+        Chapter_NumberT = float(((chapter.find('.chapterLabel',first=True)).text).split(" ")[1])
+        Chapter_Number = int(Chapter_NumberT) if Chapter_NumberT.is_integer() else Chapter_NumberT
         Chapter_URL = ((chapter.absolute_links).pop()).replace("-page-1","")
         Chapter_PD = (chapter.find('time',first=True)).text
         Chapter_List.append(Chapter_OBJ(Series_Name,Chapter_Number,Chapter_PD,Chapter_URL))
@@ -44,7 +45,8 @@ def getLatestChapter(Manga_URL):
 
     Latest_Chapter = r.html.find('.list-group-item',first=True)
 
-    Chapter_Number = float(((Latest_Chapter.find('.chapterLabel',first=True)).text).split(" ")[1])
+    Chapter_NumberT = float(((Latest_Chapter.find('.chapterLabel',first=True)).text).split(" ")[1])
+    Chapter_Number = int(Chapter_NumberT) if Chapter_NumberT.is_integer() else Chapter_NumberT
     Chapter_PD = (Latest_Chapter.find('time',first=True)).text
     Chapter_URL = ((Latest_Chapter.absolute_links).pop()).replace("-page-1","")
     return Chapter_OBJ(Series_Name,Chapter_Number,Chapter_PD,Chapter_URL)
