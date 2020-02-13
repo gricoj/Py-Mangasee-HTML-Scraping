@@ -12,6 +12,8 @@ We will be scraping [Mangasee](https://mangaseeonline.us) as it is a one of the 
 
 [Using the Function](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#using-the-functions)
 
+[Changes](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#changes)
+
 ## HTML
 These are snippets of the HTML for a [manga series'](https://mangaseeonline.us/manga/One-Piece) main page.
 #### Series Name:
@@ -221,7 +223,7 @@ One-Punch Man - 120 - 11/01/2019 - https://mangaseeonline.us/read-online/Onepunc
 One-Punch Man - 119 - 10/17/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-119.html
 .
 .
-One-Punch Man - 1.0 - 03/21/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-1.html
+One-Punch Man - 1 - 03/21/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-1.html
 ```
 
 **getTimeSinceLastChapter**: Returns a [timedelta object](https://docs.python.org/3/library/datetime.html#datetime.timedelta) in the form of *hours* *HH:MM:SS*. The timedelta object has attribute of *days*, *seconds*, and *microseconds*. (It is important to note that the seconds attribute cannot exceed 86399 and it will reset back to 0 when the difference in time is 84000 seconds or ~23.3 hours)
