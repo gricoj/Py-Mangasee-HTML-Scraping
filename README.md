@@ -12,6 +12,8 @@ We will be scraping [Mangasee](https://mangaseeonline.us) as it is a one of the 
 
 [Using the Function](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#using-the-functions)
 
+[Changes](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#changes)
+
 ## HTML
 These are snippets of the HTML for a [manga series'](https://mangaseeonline.us/manga/One-Piece) main page.
 #### Series Name:
@@ -94,10 +96,11 @@ Getting the Chapter Number requires us to look for the element with class attrib
 <span class="chapterLabel">Chapter 964</span>
 ```
 
-We want to extract the ```964``` from the HTML above. We would do this by first getting the element's text contents ```Chapter 964``` and splitting that string into a list of strings with *space* as the seperator (I opted for using this method for extracting chapter number because there are mangas that have their *chapter titles* stylized differntly. Most often chapters are simply stylized *Chapter XXX* but there some that do not i.e. One-Punch Man stylizes it's chapters *Punch XXX*, Dr.Stone stylizes it's chapters *Z= XXX*. The one thing they have in common is that there is a space before the actual chapter number). We finally convert the chapter number from type string to type float (We dont convert to type int because *bonus* chapters in a series are stylized *XXX.X*).
+We want to extract the ```964``` from the HTML above. We would do this by first getting the element's text contents ```Chapter 964``` and splitting that string into a list of strings with *space* as the seperator (I opted for using this method for extracting chapter number because there are mangas that have their *chapter titles* stylized differntly. Most often chapters are simply stylized *Chapter XXX* but there some that do not i.e. One-Punch Man stylizes it's chapters *Punch XXX*, Dr.Stone stylizes it's chapters *Z= XXX*. The one thing they have in common is that there is a space before the actual chapter number). We then convert the chapter number from type string to type float (We choose to convert to type float because *bonus* chapters in a series are stylized *XXX.X*). Finally we convert the chapter number to type int if the chapter is a whole number i.e XXX, and we leave the chapter number as type float if it is a bonus chapter i.e XXX.X
 
 ```python
-Chapter_Number = float(((Latest_Chapter.find('.chapterLabel',first=True)).text).split(" ")[1])
+Chapter_NumberT = float(((Latest_Chapter.find('.chapterLabel',first=True)).text).split(" ")[1])
+Chapter_Number = int(Chapter_NumberT) if Chapter_NumberT.is_integer() else Chapter_NumberT
 ```
 
 ##### Chapter Publish Date
@@ -136,7 +139,8 @@ We can iterate throught entry and we can follow the same steps as above to get e
 
 ```python
 for chapter in Chapters:
-  Chapter_Number = float(((chapter.find('.chapterLabel',first=True)).text).split(" ")[1])
+  Chapter_NumberT = float(((Latest_Chapter.find('.chapterLabel',first=True)).text).split(" ")[1])
+  Chapter_Number = int(Chapter_NumberT) if Chapter_NumberT.is_integer() else Chapter_NumberT
   Chapter_URL = ((chapter.absolute_links).pop()).replace("-page-1","")
   Chapter_PD = (chapter.find('time',first=True)).text
 ```
@@ -201,7 +205,7 @@ chapter = getLatestChapter("https://mangaseeonline.us/manga/Onepunch-Man")
 print(f'{chapter.series} - {chapter.chapter_number} - {chapter.date_published} - {chapter.url}')
 ```
 ```
-One-Punch Man - 123.0 - 12/14/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-123.html
+One-Punch Man - 123 - 12/14/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-123.html
 ```
 
 **getAllChapters**: Returns a list of objects type *Chapter_OBJ*
@@ -212,14 +216,14 @@ for chapter in All_Chapters:
     print(f'{chapter.series} - {chapter.chapter_number} - {chapter.date_published} - {chapter.url}')
 ```
 ```
-One-Punch Man - 123.0 - 12/14/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-123.html
-One-Punch Man - 122.0 - 11/30/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-122.html
-One-Punch Man - 121.0 - 11/16/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-121.html
-One-Punch Man - 120.0 - 11/01/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-120.html
-One-Punch Man - 119.0 - 10/17/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-119.html
+One-Punch Man - 123 - 12/14/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-123.html
+One-Punch Man - 122 - 11/30/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-122.html
+One-Punch Man - 121 - 11/16/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-121.html
+One-Punch Man - 120 - 11/01/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-120.html
+One-Punch Man - 119 - 10/17/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-119.html
 .
 .
-One-Punch Man - 1.0 - 03/21/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-1.html
+One-Punch Man - 1 - 03/21/2019 - https://mangaseeonline.us/read-online/Onepunch-Man-chapter-1.html
 ```
 
 **getTimeSinceLastChapter**: Returns a [timedelta object](https://docs.python.org/3/library/datetime.html#datetime.timedelta) in the form of *hours* *HH:MM:SS*. The timedelta object has attribute of *days*, *seconds*, and *microseconds*. (It is important to note that the seconds attribute cannot exceed 86399 and it will reset back to 0 when the difference in time is 84000 seconds or ~23.3 hours)
@@ -235,3 +239,5 @@ print(time.seconds)
 6
 11185
 ```
+## Changes
+v1.1 - Removed interger chapter numbers from being displayed as XXX.0
