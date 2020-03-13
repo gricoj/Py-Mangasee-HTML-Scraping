@@ -49,6 +49,20 @@ These are snippets of the HTML for a [manga series'](https://mangaseeonline.us/m
 </div>
 ```
 
+#### Chapter Page:
+```html
+<div class="image-container-manga">
+  <div class="fullchapimage">
+    <img src="https://v1.mangabeast01.com/manga/One-Piece/0687-001.png">
+  </div>
+  <div class="fullchapimage"></div>
+  .
+  .
+  .
+  <div class="fullchapimage"></div>
+</div>
+```
+
 ## Installing Required Packages
 ```python
 pip install requests-html
