@@ -190,6 +190,8 @@ currentTime = (datetime.utcnow()).strftime(date_format)
 tdelta = datetime.strptime(currentTime, date_format) - datetime.strptime(newTime, date_format)
 ```
 
+#### Getting all pages in a Chapter
+
 ## Manga Class
 Creating this class will allow us to create *Chapter Objects* which will allow us to store the information we gather into one object.
 
