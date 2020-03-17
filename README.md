@@ -49,20 +49,6 @@ These are snippets of the HTML for a [manga series'](https://mangaseeonline.us/m
 </div>
 ```
 
-#### Chapter Page:
-```html
-<div class="image-container-manga">
-  <div class="fullchapimage">
-    <img src="https://v1.mangabeast01.com/manga/One-Piece/0687-001.png">
-  </div>
-  <div class="fullchapimage"></div>
-  .
-  .
-  .
-  <div class="fullchapimage"></div>
-</div>
-```
-
 ## Installing Required Packages
 ```python
 pip install requests-html
@@ -256,5 +242,22 @@ print(time.seconds)
 6
 11185
 ```
+## Scraping Chapter's pages
+We can also get the url to each of the pages of a Manga's chapter. We will take a look at [this](https://mangaseeonline.us/read-online/One-Piece-chapter-687.html) chapter as an example.
+
+### HTML
+```html
+<div class="image-container-manga">
+  <div class="fullchapimage">
+    <img src="https://v1.mangabeast01.com/manga/One-Piece/0687-001.png">
+  </div>
+  <div class="fullchapimage"></div>
+  .
+  .
+  .
+  <div class="fullchapimage"></div>
+</div>
+```
+
 ## Changes
 v1.1 - Removed interger chapter numbers from being displayed as XXX.0
