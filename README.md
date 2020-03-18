@@ -259,5 +259,22 @@ We can also get the url to each of the pages of a Manga's chapter. We will take 
 </div>
 ```
 
+## Scraping
+We want to look for the class attribute *fullchapimage*, without using the *first=True* argument. This will give us a list of HTML elements, each entry being a different page.
+
+```python
+session = HTMLSession()
+r = session.get("https://mangaseeonline.us/read-online/One-Piece-chapter-687.html")
+pages = r.html.find('.fullchapimage')
+```
+
+We create an empty list to store each of the page's urls. We iterate through the list of HTML elements stripping HTML around the page's url.
+
+```python
+pages_url = []
+for page in pages:
+    pages_url.append(page.find('img')[0].html.replace('<img src="','').replace('"/>',''))
+return(pages_url)
+```
 ## Changes
 v1.1 - Removed interger chapter numbers from being displayed as XXX.0
