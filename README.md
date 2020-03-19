@@ -267,20 +267,31 @@ session = HTMLSession()
 r = session.get("https://mangaseeonline.us/read-online/One-Piece-chapter-687.html")
 page = r.html.find('.fullchapimage')
 ```
+This returns the HTML element:
+```html
+<div class="fullchapimage">
+  <img src="https://v1.mangabeast01.com/manga/One-Piece/0687-001.png"/>
+</div>
+```
+
 
 We then look for the class attribure *img*, and use the *first=True*:
 ```python
 page.find('img',first=True).html
 ```
 
-`<img src="https://v1.mangabeast01.com/manga/One-Piece/0687-001.png">`
-
+Which leaves us with this:
+```html
+<img src="https://v1.mangabeast01.com/manga/One-Piece/0687-001.png">
+```
 
 We then want to remove the HTML code surrounding the url:
 ```python
 replace('<img src="','').replace('"/>','')
 ```
+`https://v1.mangabeast01.com/manga/One-Piece/0687-001.png`
 
+Combining it in one line:
 ```python
 page_url = (page.find('img',first=True).html.replace('<img src="','').replace('"/>',''))
 ```
