@@ -272,9 +272,9 @@ We then look for the class attribure *img*, and use the *first=True*:
 ```python
 page.find('img',first=True).html
 ```
-```
-<img src="https://v1.mangabeast01.com/manga/One-Piece/0687-001.png">
-```
+
+`<img src="https://v1.mangabeast01.com/manga/One-Piece/0687-001.png">`
+
 
 We then want to remove the HTML code surrounding the url:
 ```python
