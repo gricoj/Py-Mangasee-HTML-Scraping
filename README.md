@@ -243,7 +243,7 @@ print(time.seconds)
 6
 11185
 ```
-## Scraping Chapter's pages
+## Scraping Chapter pages
 We can also get the url to each of the pages of a Manga's chapter. We will take a look at [this](https://mangaseeonline.us/read-online/One-Piece-chapter-687.html) chapter as an example.
 
 ### HTML
