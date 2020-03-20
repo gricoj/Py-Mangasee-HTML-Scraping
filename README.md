@@ -1,4 +1,3 @@
-# DOCUMENT getChapterPages function
 # Mangasee HTML Scraping
 We will be scraping [Mangasee](https://mangaseeonline.us) as it is a one of the better manga sources. The information we will be scraping includes: Series Name, Chapter Numbers, Publish Dates, and URL to the chapter. The purpose of this module is to eventually use it to get notified when a new chapter for a series is published.
 
