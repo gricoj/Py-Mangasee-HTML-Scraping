@@ -51,12 +51,12 @@ def getLatestChapter(Manga_URL):
     Chapter_URL = ((Latest_Chapter.absolute_links).pop()).replace("-page-1","")
     return Chapter_OBJ(Series_Name,Chapter_Number,Chapter_PD,Chapter_URL)
 
-def getChapterPages(Manga_URL):
+def getChapterPages(Chapter_URL):
     session = HTMLSession()
-    r = session.get(Manga_URL)
+    r = session.get(Chapter_URL)
     pages = r.html.find('.fullchapimage')
-
     pages_url = []
     for page in pages:
-        pages_url.append(page.find('img')[0].html.replace('<img src="','').replace('"/>',''))
-    return(pages_url)
+        page_url = (page.find('img',first=True).html.replace('<img src="','').replace('"/>',''))
+        pages_url.append(page_url)
+    return pages_url
