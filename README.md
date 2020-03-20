@@ -295,6 +295,39 @@ Combining it in one line:
 ```python
 page_url = (page.find('img',first=True).html.replace('<img src="','').replace('"/>',''))
 ```
+### Scraping All Pages
+The process for scraping all pages is almost identical to scraping one page. The main differences is that we look for the class attribute *fullchapimage*, and dont use the *first=True* argument. This will create a list of HTML elements for each page. We then iterate through each HTML element and get the page url:
+
+```python
+session = HTMLSession()
+r = session.get(Manga_URL)
+pages = r.html.find('.fullchapimage')
+pages_url = []
+for page in pages:
+    page_url = (page.find('img',first=True).html.replace('<img src="','').replace('"/>',''))
+    pages_url.append(page_url)
+```
+
+### Using the Function
+*getChapterPages* takes *Chapter_URL*
+
+Using `https://mangaseeonline.us/read-online/One-Piece-chapter-687.html` as *Chapter_URL*:
+
+```python
+chapter_pages = getChapterPages("https://mangaseeonline.us/read-online/One-Piece-chapter-687.html")
+for chapter_page in chapter_pages:
+  print(chapter_page)
+```
+```
+https://v1.mangabeast01.com/manga/One-Piece/0687-001.png
+https://v1.mangabeast01.com/manga/One-Piece/0687-002.png
+.
+.
+.
+https://v1.mangabeast01.com/manga/One-Piece/0687-019.png
+https://v1.mangabeast01.com/manga/One-Piece/0687-020.png
+```
 
 ## Changes
 v1.1 - Removed interger chapter numbers from being displayed as XXX.0
+v1.2 - Added getChapterPages function
