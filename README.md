@@ -12,6 +12,8 @@ We will be scraping [Mangasee](https://mangaseeonline.us) as it is a one of the 
 
 [Using the Functions](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#using-the-functions)
 
+[Scraping Chapter Pages](https://github.com/gricoj/Py-Mangasee-HTML-Scraping/tree/v1.2#scraping-chapters-pages)
+
 [Changes](https://github.com/gricoj/Py-Mangasee-HTML-Scraping#changes)
 
 ## HTML
@@ -329,4 +331,5 @@ https://v1.mangabeast01.com/manga/One-Piece/0687-020.png
 
 ## Changes
 v1.1 - Removed interger chapter numbers from being displayed as XXX.0
+
 v1.2 - Added getChapterPages function
